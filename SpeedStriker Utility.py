@@ -9,18 +9,27 @@ def cmdsafe(command):
     try:
         os.system(command)
     except ValueError:
+        init()
+def exitc(message):
+    try:
+        exit()
+    except SystemExit:
         pass
+        err = open("err.md","w")
+        err.write("SSUTIL ERROR: " +message)
 os.system("color 0b")
 if platform.release() == "8" or platform.release() == "8.1" or platform.release() == "10":
     name = "PC"
-else:
+elif platform.release() != "Vista":
     name = "computer"
+else:
+    name = "outdated piece of junk"
 selected = 0
 print("Starting SpeedStriker Utility...")
 cmdsafe("title Loading...")
 sleep(3)
 if str(platform.system()) != "Windows":
-    print("This utility uses Windows features, not all commands will work with your OS.")
+    exitc("SpeedStriker Utility requires Microsoft Windows.")
 skip()
 cmdsafe("title SpeedStriker Utility - " +str(platform.system()) + " " + str(platform.release())+ " - " +str(strftime("%a, %d %b %Y")))
 print("SpeedStriker Utility on " +str(platform.system()) , str(platform.release())+ ".")
@@ -42,11 +51,10 @@ def init():
         try:
             os.chdir(prompt[3:])
         except FileNotFoundError:
-            print("We couldn't find that folder.")
+            print("Unable to find the specified file.")
             init()
         except OSError:
-            print("The command was typed improperly.")
-            print("Usage: cd [directory name]")
+            exitc("cd was run without specifing a directory")
             init()
 
     if prompt[:7] == "pccheck":
