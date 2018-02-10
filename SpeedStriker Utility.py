@@ -11,12 +11,11 @@ def cmdsafe(command):
     except ValueError:
         init()
 def exitc(message):
-    try:
-        exit()
-    except SystemExit:
-        pass
-        err = open("err.md","w")
-        err.write("SSUTIL ERROR: " +message)
+    err = open("err.md","w")
+    err.write("SSUTIL ERROR: " +message)
+    print("SSUTIL ERROR - SHUTDOWN INITIATED")
+    webbrowser.open("SSUTILE.html")
+    exit()
 os.system("color 0b")
 if platform.release() == "8" or platform.release() == "8.1" or platform.release() == "10":
     name = "PC"
@@ -54,7 +53,7 @@ def init():
             print("Unable to find the specified file.")
             init()
         except OSError:
-            exitc("cd was run without specifing a directory")
+            exitc("cd was run without specifying a directory")
             init()
 
     if prompt[:7] == "pccheck":
