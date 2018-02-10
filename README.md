@@ -1,2 +1,0 @@
-# ssutil
-SpeedStriker Utility
