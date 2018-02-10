@@ -14,7 +14,7 @@ def exitc(message):
     err = open("err.md","w")
     err.write("SSUTIL ERROR: " +message)
     print("SSUTIL ERROR - SHUTDOWN INITIATED")
-    webbrowser.open("SSUTILE.html")
+    webbrowser.open("/SSUTILE.html")
     exit()
 os.system("color 0b")
 if platform.release() == "8" or platform.release() == "8.1" or platform.release() == "10":
