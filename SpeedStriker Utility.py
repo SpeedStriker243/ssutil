@@ -14,6 +14,13 @@ def exitc(message):
     err = open("err.md","w")
     err.write("SSUTIL ERROR: " +message)
     print("SSUTIL ERROR - SHUTDOWN INITIATED")
+    sleep(1)
+    print("3...")
+    sleep(1)
+    print("2...")
+    sleep(1)
+    print("2...")
+    sleep(1)
     webbrowser.open("https://cdn.rawgit.com/SpeedStriker243/ssutil/c356c899/SSUTILE.html")
     exit()
 os.system("color 0b")
@@ -45,6 +52,8 @@ def init():
         prompt = input("ssutil> ")
     elif hide == 2:
         prompt = input(cwd + "> ")
+    elif hide == 3:
+        prompt = input("> ")
     
     if prompt[:2] == "cd":
         try:
@@ -53,7 +62,7 @@ def init():
             print("Unable to find the specified file.")
             init()
         except OSError:
-            exitc("cd was run without specifying a directory")
+            print("No directory was specified.")
             init()
 
     if prompt[:7] == "pccheck":
@@ -86,16 +95,23 @@ def init():
     if prompt[:3] == "del":
         os.system("del " + prompt[4:])
 
+    if prompt[:5] == "crash":
+        exitc("The end-user manually crashed the utility.")
+
     if prompt == "help":
         skip()
         print("Command List:")
-        print("su - Opens a Command Prompt (not SSUTIL) window with admin privileges.")
-        print("sudo [command] - Runs any CMD command with admin privileges.")
+        print("su - Opens a Command Prompt (not SSUTIL) window with your current user privileges")
+        print("netsu [servername] - Possesses the same function as su, but for use if your computer is on a network.")
+        print("psu - Opens a PowerShell window with your current user privileges")
+        print("netpsu [servername] - Possesses the same function as psu, but for use if your computer is on a network.")
+        print("sudo [command] - Runs any CMD command with your current user privileges")
         print("pccheck - Displays information about your "+name)
         print("clear/cls - Clears the screen")
-        print("prompt [path|ssutil|all] - Changes what the prompt looks like")
+        print("prompt [nothing|path|ssutil|all] - Affects the visibility of elements of the prompt")
         print("cd [dirname] - Changes your current directory")
         print("path - Gets and prints the current path")
+        print("copypath - Copies the current path to the clipboard")
         print("ls - Lists directories")
         print("up - Goes up a directory")
         print("open - Opens the specified file")
@@ -105,6 +121,7 @@ def init():
         print("web [URL] - Opens the specified URL in your browser")
         print("wsearch [search term] - Searches the web for the specified search term")
         print("exit - Gracefully exits the utility")
+        print("crash - Invokes an SSUTIL crash.")
         skip()
         init()
 
@@ -115,10 +132,12 @@ def init():
             hide = 1
         if prompt[7:] == "path":
             hide = 2
+        if prompt[7:] == "nothing":
+            hide = 3
         init()
 
     if prompt[:4] == "open":
-        cmdsafe(prompt[5:])
+        cmdsafe("start " + prompt[5:])
 
     if prompt[:3] == "web":
         if prompt[4:] == "":
@@ -164,7 +183,7 @@ def init():
         try:
             quit()
         except EOFError:
-            pass
+            print("")
 
     if prompt[:4] == "sudo":
         if prompt[5:] == "":
@@ -175,10 +194,23 @@ def init():
         init()
 
     if prompt[:2] == "su":
-        if prompt[3:] == "":
-            prompt = "su cmd"
         cmdsafe("runas /noprofile /user:" +platform.node()+"\\" +username()+ " cmd")
         init()
+
+    if prompt[:5] == "netsu":
+        cmdsafe("runas /noprofile /user:" +prompt[6:]+"\\" +username()+ " cmd")
+        init()
+
+    if prompt[:3] == "psu":
+        cmdsafe("runas /noprofile /user:" +platform.node()+"\\" +username()+ " powershell")
+        init()
+
+    if prompt[:6] == "netpsu":
+        cmdsafe("runas /noprofile /user:" +prompt[7:]+"\\" +username()+ " powershell")
+        init()
+
+    if prompt[:8] == "copypath":
+        cmdsafe("echo " + os.getcwd().strip() + "| clip")
 
     if prompt == None:
         init()
