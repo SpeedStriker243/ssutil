@@ -1,6 +1,6 @@
 # Synax Console for Windows
 
-Previously known as SpeedStriker Utility, Synax Console for Windows is a proof-of-concept command line application written in Python.
+Previously known as SpeedStriker Utility, Synax Console for Windows is a discontinued proof-of-concept command line application written in Python. Expect it to be replaced by a newer version in .NET c#.
 
 ## Command list
 
