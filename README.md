@@ -35,11 +35,11 @@ Previously known as SpeedStriker Utility, Synax Console for Windows is a proof-o
 
 `open` - Opens the specified file.
 
-`echo` <message> - Prints a message to the console.
+`echo <message>` - Prints a message to the console.
   
-`new` <dirname> - Creates a new directory.
+`new <dirname>` - Creates a new directory.
   
-`del` <filename> - Deletes the specified file.
+`del <filename>` - Deletes the specified file.
   
 `web <URL>` - Opens the specified URL in your default browser.
   
