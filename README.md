@@ -2,7 +2,9 @@
 
 SpeedStriker Utility is a discontinued proof-of-concept command line application written in Python. 
 
-Further development will be done in [Synax Console]("https://github.com/That1M8Head/SynaxConsole"). Please go there instead.
+Further development will be done in [Synax Console]("https://github.com/That1M8Head/SynaxConsole").
+
+Please go there instead.
 
 ## Command list
 
